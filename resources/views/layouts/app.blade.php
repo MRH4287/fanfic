@@ -219,12 +219,19 @@
                         </ul>
                     </li>
 
-                    <li class="text-muted menu-title">More</li>
+                    <li class="text-muted menu-title">Admin</li>
 
                     <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><i
-                                    class="ti-share"></i><span>Multi Level </span></a>
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="fa fa-tv"></i><span>Series</span>
+                        </a>
                         <ul>
+                            <li>
+                                <a href="{{ url('/series/list') }}"><i class="fa fa-list"></i><span>List</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/series/add') }}"><i class="fa  fa-plus-square-o"></i><span>Add</span></a>
+                            </li>
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><span>Menu Level 1.1</span> </a>
                                 <ul style="">
@@ -232,9 +239,6 @@
                                     <li><a href="javascript:void(0);"><span>Menu Level 2.2</span></a></li>
                                     <li><a href="javascript:void(0);"><span>Menu Level 2.3</span></a></li>
                                 </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);"><span>Menu Level 1.2</span></a>
                             </li>
                         </ul>
                     </li>
@@ -258,7 +262,7 @@
                 </div> <!-- container -->
             </div> <!-- content -->
             <footer class="footer text-right">
-                   2015 © Ubold.
+                   2015 ï¿½ Ubold.
             </footer>
 
         </div>
