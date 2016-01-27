@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Fanfic</title>
+    @yield('css')
 
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ URL::asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -293,8 +294,8 @@
     <script src="{{ URL::asset('/assets/pages/jquery.chat.js') }}"></script>
     <script src="{{ URL::asset('/assets/plugins/jquery-knob/jquery.knob.js') }}"></script>
     <script src="{{ URL::asset('/assets/plugins/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
+@yield('scripts')
     <script src="{{ URL::asset('/assets/js/jquery.core.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/jquery.app.js') }}"></script>
-
 </body>
 </html>
