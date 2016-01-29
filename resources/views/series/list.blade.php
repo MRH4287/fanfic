@@ -27,8 +27,8 @@
                     <thead>
                     <tr>
                         <th data-toggle="true"> Name </th>
-                        <th> Number of Characters </th>
-                        <th> Number of works </th>
+                        <th data-hide="phone"> Number of Characters </th>
+                        <th data-hide="phone"> Number of works </th>
                         <th style="text-align: right"> Tools </th>
                         <th data-hide="all"> Characters </th>
                     </tr>
@@ -76,11 +76,12 @@
                     table.data('footable').toggleDetail(this);
                 });
             });
+            // Search input
+            $('#search').on('input', function (e) {
+                e.preventDefault();
+                table.trigger('footable_filter', {filter: $(this).val()});
+            });
         });
-               // Search input
-        $('#search').on('input', function (e) {
-            e.preventDefault();
-            table.trigger('footable_filter', {filter: $(this).val()});
-        });
+
     </script>
 @endsection

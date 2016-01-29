@@ -54,7 +54,7 @@
                 </div>
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                     <div class="col-xs-12">
-                        <input type="text" class="form-control" name="name" value="{{ old('username') }}" placeholder="name">
+                        <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="username">
 
                         @if ($errors->has('username'))
                             <span class="help-block">

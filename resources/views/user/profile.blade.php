@@ -1,195 +1,227 @@
 @extends('layouts.app')
+@section('css')
+    <link href="{{ URL::asset('assets/plugins/footable/css/footable.core.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css') }}"
+          rel="stylesheet"/>
 
+@endsection
 @section('content')
-<div class="wraper container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="bg-picture text-center">
-                <div class="bg-picture-overlay"></div>
-                <div class="profile-info-name">
-                    <img src="assets/images/users/avatar-1.jpg" class="thumb-lg img-circle img-thumbnail" alt="profile-image">
-                    <h4 class="m-b-5"><b>{{ Auth::user()->name }}</b></h4>
-                    <p class="text-muted"><i class="fa fa-map-marker"></i> New york, United States</p>
-                </div>
-            </div>
-            <!--/ meta -->
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-4">
-
-            <div class="card-box m-t-20">
-                <h4 class="m-t-0 header-title"><b>Personal Information</b></h4>
-                <div class="p-20">
-                    <div class="about-info-p">
-                        <strong>Full Name</strong>
-                        <br>
-                        <p class="text-muted">Johnathan Deo</p>
-                    </div>
-                    <div class="about-info-p">
-                        <strong>Mobile</strong>
-                        <br>
-                        <p class="text-muted">(123) 123 1234</p>
-                    </div>
-                    <div class="about-info-p">
-                        <strong>Email</strong>
-                        <br>
-                        <p class="text-muted">johnathan@ubold.com</p>
-                    </div>
-                    <div class="about-info-p m-b-0">
-                        <strong>Location</strong>
-                        <br>
-                        <p class="text-muted">USA</p>
+    {{ csrf_field() }}
+    <div class="wraper container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="sm-picture text-center">
+                    <div class="bg-picture-overlay"></div>
+                    <div class="profile-info-name">
+                        <img
+                                @if(!empty($user->photo))
+                                src="{{ URL::asset('/assets/images/users/'.Auth::user()->photo.'.png') }}"
+                                @else
+                                src="{{ URL::asset('/assets/images/users/default.png') }}"
+                                @endif
+                                class="thumb-lg img-circle img-thumbnail" alt="profile-image">
+                        <h4 class="m-b-5"><b>{{ $user->name }}</b></h4>
+                        @if(Auth::user()->id != $user->id)
+                            @if(Auth::user()->askIsFollowing($user))
+                                <button id="follow" class="btn btn-default btn-rounded waves-effect waves-light btn-sm" onclick="togglefollow({{ $user->id }}, 'u')"><i class="fa fa-check m-r-5"></i> Follow</button>
+                            @else
+                                <button id="follow" class="btn btn-default btn-rounded waves-effect waves-light btn-sm" onclick="togglefollow({{ $user->id }}, 'f')">Follow</button>
+                            @endif
+                            @if(Auth::user()->askIsFavoriting($user))
+                                    <button id="favorite" class="btn btn-danger btn-rounded waves-effect waves-light btn-sm" onclick="togglefavorite({{ $user->id }}, 'u')"><i class="fa fa-check m-r-5"></i> Favorite</button>
+                                @else
+                                    <button id="favorite" class="btn btn-danger btn-rounded waves-effect waves-light btn-sm" onclick="togglefavorite({{ $user->id }}, 'f')">favorite</button>
+                                @endif
+                        @endif
                     </div>
                 </div>
-            </div>
-
-            <!-- Personal-Information -->
-            <div class="card-box">
-                <h4 class="m-t-0 header-title"><b>Biography</b></h4>
-
-                <div class="p-20">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-
-                    <p><strong>But also the leap into electronic typesetting, remaining essentially unchanged.</strong></p>
-
-                    <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                </div>
-            </div>
-            <!-- Personal-Information -->
-
-
-            <!-- Personal-Information -->
-            <div class="card-box">
-                <h4 class="m-t-0 header-title"><b>Skills</b></h4>
-
-                <div class="p-20">
-                    <div class="m-b-15">
-                        <h5>Angular Js <span class="pull-right">60%</span></h5>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-primary wow animated progress-animated" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                <span class="sr-only">60% Complete</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="m-b-15">
-                        <h5>Javascript <span class="pull-right">90%</span></h5>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-pink wow animated progress-animated" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
-                                <span class="sr-only">90% Complete</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="m-b-15">
-                        <h5>Wordpress <span class="pull-right">80%</span></h5>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-purple wow animated progress-animated" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                                <span class="sr-only">80% Complete</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="m-b-0">
-                        <h5>HTML5 &amp; CSS3 <span class="pull-right">95%</span></h5>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-info wow animated progress-animated" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%;">
-                                <span class="sr-only">95% Complete</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Personal-Information -->
-
-
-
-        </div>
-
-
-        <div class="col-md-8">
-
-            <div class="card-box m-t-20">
-                <h4 class="m-t-0 header-title"><b>Activity</b></h4>
-                <div class="p-20">
-                    <div class="timeline-2">
-                        <div class="time-item">
-                            <div class="item-info">
-                                <div class="text-muted">5 minutes ago</div>
-                                <p><strong><a href="#" class="text-info">John Doe</a></strong> Uploaded a photo <strong>"DSC000586.jpg"</strong></p>
-                            </div>
-                        </div>
-
-                        <div class="time-item">
-                            <div class="item-info">
-                                <div class="text-muted">30 minutes ago</div>
-                                <p><a href="" class="text-info">Lorem</a> commented your post.</p>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                            </div>
-                        </div>
-
-                        <div class="time-item">
-                            <div class="item-info">
-                                <div class="text-muted">59 minutes ago</div>
-                                <p><a href="" class="text-info">Jessi</a> attended a meeting with<a href="#" class="text-success">John Doe</a>.</p>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                            </div>
-                        </div>
-
-                        <div class="time-item">
-                            <div class="item-info">
-                                <div class="text-muted">5 minutes ago</div>
-                                <p><strong><a href="#" class="text-info">John Doe</a></strong>Uploaded 2 new photos</p>
-                            </div>
-                        </div>
-
-                        <div class="time-item">
-                            <div class="item-info">
-                                <div class="text-muted">30 minutes ago</div>
-                                <p><a href="" class="text-info">Lorem</a> commented your post.</p>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                            </div>
-                        </div>
-
-                        <div class="time-item">
-                            <div class="item-info">
-                                <div class="text-muted">59 minutes ago</div>
-                                <p><a href="" class="text-info">Jessi</a> attended a meeting with<a href="#" class="text-success">John Doe</a>.</p>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-box">
-                <h4 class="m-t-0 m-b-20 header-title"><b>My Office</b></h4>
-
-                <div class="gmap">
-                    <iframe height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                            src="http://maps.google.co.in/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Google+India+Bangalore,+Bennigana+Halli,+Bangalore,+Karnataka&amp;aq=0&amp;oq=google+&amp;sll=9.930582,78.12303&amp;sspn=0.192085,0.308647&amp;ie=UTF8&amp;hq=Google&amp;hnear=Bennigana+Halli,+Bangalore,+Bengaluru+Urban,+Karnataka&amp;t=m&amp;ll=12.993518,77.660294&amp;spn=0.012545,0.036006&amp;z=15&amp;output=embed"></iframe>
-                </div>
-                <br/>
-                <div class="gmap-info">
-                    <h4><b><a href="#" class="text-dark">Google India Pvt. Ltd</a></b></h4>
-                    <p>No. 3, RMZ Infinity - Tower E 3rd, 4th, and 5th Floors, </p>
-                    <p>Old Madras Road, </p>
-                    <p>Bengaluru, Karnataka 560016,</p>
-                    <p>India</p>
-                </div>
-
-                <div class="clearfix"></div>
+                <!--/ meta -->
             </div>
         </div>
 
 
-    </div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Personal-Information -->
+                <div class="card-box m-t-20">
+                    <div style="text-align: center">
+                        <h4 class="m-t-0 header-title"><b><i class="fa fa-users text-custom"></i> Follows:</b><span id="numberFollow"> {{ $user->follows }}</span></h4>
+                        <h4 class="m-t-15 header-title"><b><i class="fa fa-heart text-danger"></i> Favorites:</b><span id="numberFavorites"> {{ $user->favorites }}</span></h4>
+                    </div>
+                </div>
+                <!-- Personal-Information -->
 
-    <div class="row">
+                <!-- Personal-Information -->
+                @if(!empty($user->bio))
+                <div class="card-box">
+                    <h4 class="m-t-0 header-title"><b>About me</b></h4>
 
+                    <div class="p-20">
+                        {{ $user->bio }}
+                    </div>
+                </div>
+                @endif
+                <!-- Personal-Information -->
+
+                <div class="card-box m-t-0">
+                    <h4 class="m-t-0 header-title"><b>My other social networks</b></h4>
+                    <div class="p-20">
+                        <div class="about-info-p">
+                            <strong>Full Name</strong>
+                            <br>
+                            <p class="text-muted">Johnathan Deo</p>
+                        </div>
+                        <div class="about-info-p">
+                            <strong>Mobile</strong>
+                            <br>
+                            <p class="text-muted">(123) 123 1234</p>
+                        </div>
+                        <div class="about-info-p">
+                            <strong>Email</strong>
+                            <br>
+                            <p class="text-muted">johnathan@ubold.com</p>
+                        </div>
+                        <div class="about-info-p m-b-0">
+                            <strong>Location</strong>
+                            <br>
+                            <p class="text-muted">USA</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="col-md-8">
+
+                <div class="card-box m-t-20">
+                    <h4 class="m-t-0 header-title"><b>Activity</b></h4>
+                    <div class="p-20">
+                        <div class="timeline-2">
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <div class="text-muted">5 minutes ago</div>
+                                    <p><strong><a href="#" class="text-info">John Doe</a></strong> Uploaded a photo
+                                        <strong>"DSC000586.jpg"</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <div class="text-muted">30 minutes ago</div>
+                                    <p><a href="" class="text-info">Lorem</a> commented your post.</p>
+                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet
+                                            tellus ut tincidunt euismod. "</em></p>
+                                </div>
+                            </div>
+
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <div class="text-muted">59 minutes ago</div>
+                                    <p><a href="" class="text-info">Jessi</a> attended a meeting with<a href="#"
+                                                                                                        class="text-success">John
+                                            Doe</a>.</p>
+                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet
+                                            tellus ut tincidunt euismod. "</em></p>
+                                </div>
+                            </div>
+
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <div class="text-muted">5 minutes ago</div>
+                                    <p><strong><a href="#" class="text-info">John Doe</a></strong>Uploaded 2 new photos
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <div class="text-muted">30 minutes ago</div>
+                                    <p><a href="" class="text-info">Lorem</a> commented your post.</p>
+                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet
+                                            tellus ut tincidunt euismod. "</em></p>
+                                </div>
+                            </div>
+
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <div class="text-muted">59 minutes ago</div>
+                                    <p><a href="" class="text-info">Jessi</a> attended a meeting with<a href="#"
+                                                                                                        class="text-success">John
+                                            Doe</a>.</p>
+                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet
+                                            tellus ut tincidunt euismod. "</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-box m-t-0">
+                    <h4 class="m-t-0 header-title"><b>Works</b></h4>
+                    <table id="works-table" class="table m-b-0 toggle-arrow-tiny" data-page-size="10">
+                        <thead>
+                        <tr>
+                            <th data-toggle="true"> First Name</th>
+                            <th> Last Name</th>
+                            <th data-hide="phone"> Job Title</th>
+                            <th data-hide="all"> DOB</th>
+                            <th data-hide="all"> Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Isidra</td>
+                            <td>Boudreaux</td>
+                            <td>Traffic Court Referee</td>
+                            <td>22 Jun 1972</td>
+                            <td><span class="label label-table label-success">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Shona</td>
+                            <td>Woldt</td>
+                            <td>Airline Transport Pilot</td>
+                            <td>3 Oct 1981</td>
+                            <td><span class="label label-table label-inverse">Disabled</span></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="text-right">
+                                    <ul class="pagination pagination-split m-t-30"></ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+
+        </div>
     </div>
-    </div>
+@endsection
+
+
+@section('scripts')
+    <script src="{{ URL::asset('assets/plugins/footable/js/footable.all.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js') }}"
+            type="text/javascript"></script>
+    <script>
+        // Filtering
+        // -----------------------------------------------------------------
+        $(window).on('load', function () {
+            // Pagination
+            // -----------------------------------------------------------------
+            var $workstable = $('#works-table');
+            $workstable.footable();
+
+        });
+    </script>
 @endsection

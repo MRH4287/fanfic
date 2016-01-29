@@ -30,7 +30,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
-    Route::controller('user', 'UserController');
-    Route::controller('series', 'SeriesController');
+    Route::controller('/user', 'UserController');
+    Route::controller('/series', 'SeriesController');
     Route::resource('photo', 'PhotoController');
 });

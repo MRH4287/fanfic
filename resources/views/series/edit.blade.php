@@ -39,9 +39,9 @@
                     {{ csrf_field() }}
                     <input name="id" value="{{ $series->id }}" hidden>
                     <div class="form-group text-right m-b-0">
-                        <button href="{{ url('/series/list') }}" type="reset" class="btn btn-inverse waves-effect waves-light m-l-5">
+                        <a href="{{ url('/series/list') }}" type="reset" class="btn btn-inverse waves-effect waves-light m-l-5">
                             Cancel
-                        </button>
+                        </a>
                         <button class="btn btn-default waves-effect waves-light" type="submit">
                             Submit
                         </button>

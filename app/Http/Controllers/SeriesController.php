@@ -10,6 +10,13 @@ use App\Http\Controllers\Controller;
 
 class SeriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:1',["except" => ["index","show"]]);
+    }
+
+
     public function getList(){
         return view('series.list', ['series' => Series::with('characters')->get()]);
     }

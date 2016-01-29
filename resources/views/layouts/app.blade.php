@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Fanfic</title>
     @yield('css')
 
@@ -24,6 +23,10 @@
     <![endif]-->
 
     <script src="{{ URL::asset('/assets/js/modernizr.min.js') }}"></script>
+
+    <script type="text/javascript">
+        var APP_URL = {!! json_encode(url('/')) !!};
+    </script>
 </head>
 <body class="fixed-left" id="app-layout">
 <!-- Begin page -->
@@ -181,10 +184,15 @@
                             <li class="dropdown">
                                 <a href="" class="dropdown-toggle profile" data-toggle="dropdown"
                                    aria-expanded="true">{{ Auth::user()->name }} <img
-                                            src="assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle">
+                                            @if(!empty(Auth::user()->photo))
+                                            src="{{ URL::asset('/assets/images/users/'.Auth::user()->photo.'.png') }}"
+                                            @else
+                                            src="{{ URL::asset('/assets/images/users/default.png') }}"
+                                            @endif
+                                            alt="user-img" class="img-circle">
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)"><i class="ti-user m-r-5"></i> Profile</a></li>
+                                    <li><a href="{{ url('/user/profile/'.Auth::user()->username) }}"><i class="ti-user m-r-5"></i> Profile</a></li>
                                     <li><a href="javascript:void(0)"><i class="ti-settings m-r-5"></i> Settings</a></li>
                                     <li><a href="javascript:void(0)"><i class="ti-lock m-r-5"></i> Lock screen</a></li>
                                     <li><a href="{{ url('/logout') }}"><i class="ti-power-off m-r-5"></i> Logout</a>
@@ -219,30 +227,32 @@
                             <li><a href="dashboard_3.html">Dashboard 3</a></li>
                         </ul>
                     </li>
+                    @if(Auth::user()->hasRole(1))
+                        <li class="text-muted menu-title">Admin</li>
 
-                    <li class="text-muted menu-title">Admin</li>
-
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect">
-                            <i class="fa fa-tv"></i><span>Series</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="{{ url('/series/list') }}"><i class="fa fa-list"></i><span>List</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ url('/series/add') }}"><i class="fa  fa-plus-square-o"></i><span>Add</span></a>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><span>Menu Level 1.1</span> </a>
-                                <ul style="">
-                                    <li><a href="javascript:void(0);"><span>Menu Level 2.1</span></a></li>
-                                    <li><a href="javascript:void(0);"><span>Menu Level 2.2</span></a></li>
-                                    <li><a href="javascript:void(0);"><span>Menu Level 2.3</span></a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="fa fa-tv"></i><span>Series</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="{{ url('/series/list') }}"><i class="fa fa-list"></i><span>List</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/series/add') }}"><i
+                                                class="fa  fa-plus-square-o"></i><span>Add</span></a>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><span>Menu Level 1.1</span> </a>
+                                    <ul style="">
+                                        <li><a href="javascript:void(0);"><span>Menu Level 2.1</span></a></li>
+                                        <li><a href="javascript:void(0);"><span>Menu Level 2.2</span></a></li>
+                                        <li><a href="javascript:void(0);"><span>Menu Level 2.3</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -256,15 +266,15 @@
         <div class="content">
             @if (Auth::guest())
                 <div class="container-alt">
-            @else
-                <div class="container">
-            @endif
-                    @yield('content')
-                </div> <!-- container -->
-            </div> <!-- content -->
-            <footer class="footer text-right">
-                   2015 � Ubold.
-            </footer>
+                    @else
+                        <div class="container">
+                            @endif
+                            @yield('content')
+                        </div> <!-- container -->
+                </div> <!-- content -->
+                <footer class="footer text-right">
+                    2015 � Ubold.
+                </footer>
 
         </div>
 
@@ -294,8 +304,9 @@
     <script src="{{ URL::asset('/assets/pages/jquery.chat.js') }}"></script>
     <script src="{{ URL::asset('/assets/plugins/jquery-knob/jquery.knob.js') }}"></script>
     <script src="{{ URL::asset('/assets/plugins/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
-@yield('scripts')
+    @yield('scripts')
     <script src="{{ URL::asset('/assets/js/jquery.core.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/jquery.app.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/app.js') }}"></script>
 </body>
 </html>
