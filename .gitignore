@@ -4,3 +4,6 @@ Homestead.yaml
 Homestead.json
 .env
 /.idea
+/build
+/public/assets/js/package.min.js
+/npm-debug.log
