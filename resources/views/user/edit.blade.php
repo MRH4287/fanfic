@@ -53,15 +53,15 @@
                         <div class="p-20">
                             <div class="form-group">
                                 <label for="name">Twitter</label>
-                                <input type="text" name="tw" placeholder="link" class="form-control" id="twitter" >
+                                <input type="text" name="tw" placeholder="http://twitter.com/@username" value="{{ Auth::user()->twitter_link }}" class="form-control" id="twitter" >
                             </div>
                             <div class="form-group">
                                 <label for="name">Tumblr</label>
-                                <input type="text" name="tlr" placeholder="link" class="form-control" id="tumblr" >
+                                <input type="text" name="tlr" placeholder="http://username.tumblr.com" value="{{ Auth::user()->tumlr_link }}"" class="form-control" id="tumblr" >
                             </div>
                             <div class="form-group">
                                 <label for="name">Youtube</label>
-                                <input type="text" name="yt" placeholder="link" class="form-control" id="youtube" >
+                                <input type="text" name="yt" placeholder="http://youtube.com/username" value="{{ Auth::user()->youtube_link }}"" class="form-control" id="youtube" >
                             </div>
                         </div>
                     </div>
