@@ -57,7 +57,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">Tumblr</label>
-                                <input type="text" name="tlr" placeholder="http://username.tumblr.com" value="{{ Auth::user()->tumlr_link }}"" class="form-control" id="tumblr" >
+                                <input type="text" name="tlr" placeholder="http://username.tumblr.com" value="{{ Auth::user()->tumblr_link }}"" class="form-control" id="tumblr" >
                             </div>
                             <div class="form-group">
                                 <label for="name">Youtube</label>
