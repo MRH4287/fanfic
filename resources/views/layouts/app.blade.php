@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fanfic</title>
+    <title>Drabble</title>
     @yield('css')
 
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
@@ -15,6 +15,9 @@
     <link href="{{ URL::asset('/assets/css/pages.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ URL::asset('/assets/css/responsive.css') }}" rel="stylesheet" type="text/css"/>
 
+
+    <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -192,7 +195,8 @@
                                             alt="user-img" class="img-circle">
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{ url('/user/profile/'.Auth::user()->username) }}"><i class="ti-user m-r-5"></i> Profile</a></li>
+                                    <li><a href="{{ url('/user/profile/'.Auth::user()->username) }}"><i
+                                                    class="ti-user m-r-5"></i> Profile</a></li>
                                     <li><a href="javascript:void(0)"><i class="ti-settings m-r-5"></i> Settings</a></li>
                                     <li><a href="javascript:void(0)"><i class="ti-lock m-r-5"></i> Lock screen</a></li>
                                     <li><a href="{{ url('/logout') }}"><i class="ti-power-off m-r-5"></i> Logout</a>
@@ -218,13 +222,28 @@
                 <ul>
 
                     <li class="text-muted menu-title">Navigation</li>
-
+                    <li>
+                        <a href="{{ url('/home') }}" class="waves-effect"><i class="ti-home"></i><span>Dashboard</span></a>
+                    </li>
                     <li class="has_sub">
-                        <a href="#" class="waves-effect active"><i class="ti-home"></i> <span> Dashboard </span> </a>
+                        <a href="#" class="waves-effect"><i class="ti-bookmark-alt"></i><span>Bookmarks</span></a>
                         <ul class="list-unstyled">
-                            <li class="active"><a href="index.html">Dashboard 1</a></li>
-                            <li><a href="dashboard_2.html">Dashboard 2</a></li>
-                            <li><a href="dashboard_3.html">Dashboard 3</a></li>
+                            <li><a href="dashboard_3.html"><i class="ti-pencil"></i><span>Edit</span></a></li>
+                            <li><a href="dashboard_3.html"><i class="ti-bookmark"></i><span>Bookmark 1</span></a></li>
+                            <li><a href="dashboard_3.html"><i class="ti-bookmark"></i><span>Bookmark 2</span></a></li>
+                            <li><a href="dashboard_3.html"><i class="ti-bookmark"></i><span>Bookmark 3</span></a></li>
+                            <li><a href="dashboard_3.html"><i class="ti-bookmark"></i><span>Bookmark 4</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="has_sub">
+                        <a href="#" class="waves-effect"><i class="fa fa-book"></i><span>Writer</span></a>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#" class="waves-effect"><i class="ti-archive"></i><span>Archive</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="waves-effect"><i class="fa  fa fa-sticky-note-o"></i><span>Idea board</span></a>
+                            </li>
                         </ul>
                     </li>
                     @if(Auth::user()->hasRole(1))
@@ -242,13 +261,33 @@
                                     <a href="{{ url('/series/add') }}"><i
                                                 class="fa  fa-plus-square-o"></i><span>Add</span></a>
                                 </li>
-                                <li class="has_sub">
-                                    <a href="javascript:void(0);" class="waves-effect"><span>Menu Level 1.1</span> </a>
-                                    <ul style="">
-                                        <li><a href="javascript:void(0);"><span>Menu Level 2.1</span></a></li>
-                                        <li><a href="javascript:void(0);"><span>Menu Level 2.2</span></a></li>
-                                        <li><a href="javascript:void(0);"><span>Menu Level 2.3</span></a></li>
-                                    </ul>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="fa fa-tag"></i><span>Tags</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="{{ url('/series/list') }}"><i class="fa fa-list"></i><span>All</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/series/add') }}"><i
+                                                class="fa fa-spin  fa-circle-o-notch"></i><span>Pending</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="fa fa-users"></i><span>Users</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="{{ url('/series/list') }}"><i class="fa fa-list"></i><span>List</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/series/add') }}"><i
+                                                class="fa  fa-plus-square-o"></i><span>Add</span></a>
                                 </li>
                             </ul>
                         </li>

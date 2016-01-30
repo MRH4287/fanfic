@@ -23,15 +23,17 @@
                         <h4 class="m-b-5"><b>{{ $user->name }}</b></h4>
                         @if(Auth::user()->id != $user->id)
                             @if(Auth::user()->askIsFollowing($user))
-                                <button id="follow" class="btn btn-default btn-rounded waves-effect waves-light btn-sm" onclick="togglefollow({{ $user->id }}, 'u')"><i class="fa fa-check m-r-5"></i> Follow</button>
+                                <button id="follow" class="btn btn-default btn-rounded waves-effect waves-light btn-sm" onclick="togglefollow({{ $user->id }}, 'u')"><i class="fa fa-check m-r-5"></i>Follow</button>
                             @else
                                 <button id="follow" class="btn btn-default btn-rounded waves-effect waves-light btn-sm" onclick="togglefollow({{ $user->id }}, 'f')">Follow</button>
                             @endif
                             @if(Auth::user()->askIsFavoriting($user))
-                                    <button id="favorite" class="btn btn-danger btn-rounded waves-effect waves-light btn-sm" onclick="togglefavorite({{ $user->id }}, 'u')"><i class="fa fa-check m-r-5"></i> Favorite</button>
+                                    <button id="favorite" class="btn btn-danger btn-rounded waves-effect waves-light btn-sm" onclick="togglefavorite({{ $user->id }}, 'u')"><i class="fa fa-check m-r-5"></i>Favorite</button>
                                 @else
                                     <button id="favorite" class="btn btn-danger btn-rounded waves-effect waves-light btn-sm" onclick="togglefavorite({{ $user->id }}, 'f')">favorite</button>
                                 @endif
+                            @else
+                            <a href="{{ url('/user/edit/'.Auth::user()->username) }}" class="btn btn-inverse btn-rounded waves-effect waves-light btn-sm"><i class="fa fa-pencil m-r-5"></i>Edit</a>
                         @endif
                     </div>
                 </div>
@@ -45,7 +47,7 @@
                 <!-- Personal-Information -->
                 <div class="card-box m-t-20">
                     <div style="text-align: center">
-                        <h4 class="m-t-0 header-title"><b><i class="fa fa-users text-custom"></i> Follows:</b><span id="numberFollow"> {{ $user->follows }}</span></h4>
+                        <h4 class="m-t-0 header-title"><b><i class="fa fa-users text-custom"></i> Follows:</b><span id="numberFollows"> {{ $user->follows }}</span></h4>
                         <h4 class="m-t-15 header-title"><b><i class="fa fa-heart text-danger"></i> Favorites:</b><span id="numberFavorites"> {{ $user->favorites }}</span></h4>
                     </div>
                 </div>
