@@ -45,12 +45,10 @@
                         <p class="text-muted font-13">
                             Link your accounts so other users can find you there.
                         </p>
-                        <div class="row" style="font-size: 30px">
-                            <div class="col-md-2"><i class="fa fa-twitter" onclick="toggleNetwork('tw')"></i></div>
+                        <div class="row" style="font-size: 36px; text-align: center">
+                            <div class="col-md-2 col-md-offset-3"><i class="fa fa-twitter" onclick="toggleNetwork('tw')"></i></div>
                             <div class="col-md-2"><i class="fa fa-tumblr" onclick="toggleNetwork('tlr')"></i></div>
                             <div class="col-md-2"><i class="fa fa-youtube" onclick="toggleNetwork('yt')"></i></div>
-                            <div class="col-md-2"><i class="" onclick="toggleNetwork('ff')"></i></div>
-                            <div class="col-md-2"><i class="" onclick="toggleNetwork('ao3')"></i></div>
                         </div>
                         <div class="p-20">
                             <div class="form-group">
@@ -64,14 +62,6 @@
                             <div class="form-group">
                                 <label for="name">Youtube</label>
                                 <input type="text" name="yt" placeholder="link" class="form-control" id="youtube" >
-                            </div>
-                            <div class="form-group">
-                                <label for="name">FanFiction</label>
-                                <input type="text" name="ff" placeholder="link" class="form-control" id="fanfiction" >
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Archive of our own</label>
-                                <input type="text" name="ao3" placeholder="link" class="form-control" id="ao3" >
                             </div>
                         </div>
                     </div>
